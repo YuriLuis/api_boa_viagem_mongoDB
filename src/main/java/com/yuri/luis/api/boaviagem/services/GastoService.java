@@ -59,7 +59,14 @@ public class GastoService {
 	public Gasto update(Gasto obj) {
 		Gasto newObj = findById(obj.getIdGasto());
 		updateData(newObj, obj);
-		return gastoRepository.save(newObj);
+		gastoRepository.save(newObj);
+		Optional<Viagem> viagem = viagemRepository.findById(newObj.getIdViagem());
+		if (viagem.isPresent()) {
+			viagem.get().getGastos().clear();
+			viagem.get().getGastos().addAll(Arrays.asList(newObj));
+			viagemRepository.save(viagem.get());
+		}
+		return newObj;
 	}
 
 	private void updateData(Gasto newObj, Gasto obj) {

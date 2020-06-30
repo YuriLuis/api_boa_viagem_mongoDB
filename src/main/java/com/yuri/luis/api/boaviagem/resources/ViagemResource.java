@@ -54,8 +54,8 @@ public class ViagemResource {
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.PUT)
  	public ResponseEntity<Void> update(@RequestBody Viagem obj, @PathVariable String id) {
-		Viagem usuario = viagemService.findById(id);
-		usuario.setIdViagem(id);
+		Viagem viagem = viagemService.findById(id);
+		viagem.setIdViagem(id);
 		obj = viagemService.update(obj);
 		return ResponseEntity.noContent().build();
 	}

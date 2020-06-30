@@ -65,6 +65,9 @@ public class GastoResource {
 		Gasto gasto = gastoService.findById(id);
 		gasto.setIdGasto(id);
 		obj = gastoService.update(obj);
+		Viagem viagem = viagemService.findById(obj.getIdViagem());
+		viagem.getGastos().removeAll(Arrays.asList(obj));
+		viagemService.update(viagem);
 		return ResponseEntity.noContent().build();
 	}
 
