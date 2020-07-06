@@ -54,5 +54,19 @@ public class UsuarioResource {
 		obj = usuarioService.update(obj);
 		return ResponseEntity.noContent().build();
 	}
+	
+	@RequestMapping(value = "/{/autentica}", method=RequestMethod.POST)
+	public boolean autenticaUsuario(@RequestBody Usuario obj){
+		
+		for(Usuario u : usuarioService.findAll()) {
+			
+			if (obj.getLogin().equalsIgnoreCase(u.getIdUsuario()) &&
+					obj.getSenha().equalsIgnoreCase(u.getSenha())) {
+				
+				return true;
+			}
+		}
+		return false;
+	}
 
 }
