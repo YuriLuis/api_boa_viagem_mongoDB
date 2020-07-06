@@ -56,14 +56,15 @@ public class UsuarioResource {
 	}
 	
 	@RequestMapping(value = "/{autentica}", method=RequestMethod.POST)
-	public ResponseEntity<Usuario> autenticaUsuario(@RequestBody Usuario obj){
+	public ResponseEntity<Void> autenticaUsuario(@RequestBody Usuario obj){
 		
 		for(Usuario u : usuarioService.findAll()) {
 			
 			if (obj.getLogin().equalsIgnoreCase(u.getLogin()) &&
 					obj.getSenha().equalsIgnoreCase(u.getSenha())) {
 				obj.setIdUsuario(u.getIdUsuario());
-				return ResponseEntity.ok().body(obj);
+				URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getIdUsuario()).toUri();
+				return ResponseEntity.created(uri).build();
 			}
 		}
 		return null;
