@@ -56,14 +56,14 @@ public class UsuarioResource {
 	}
 	
 	@RequestMapping(value = "/{autentica}", method=RequestMethod.POST)
-	public Usuario autenticaUsuario(@RequestBody Usuario obj){
+	public ResponseEntity<Usuario> autenticaUsuario(@RequestBody Usuario obj){
 		
 		for(Usuario u : usuarioService.findAll()) {
 			
 			if (obj.getLogin().equalsIgnoreCase(u.getLogin()) &&
 					obj.getSenha().equalsIgnoreCase(u.getSenha())) {
 				
-				return u;
+				return ResponseEntity.ok().body(u);
 			}
 		}
 		return null;
