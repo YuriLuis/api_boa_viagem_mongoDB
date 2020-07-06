@@ -62,7 +62,7 @@ public class UsuarioResource {
 			
 			if (obj.getLogin().equalsIgnoreCase(u.getLogin()) &&
 					obj.getSenha().equalsIgnoreCase(u.getSenha())) {
-				
+				obj.setIdUsuario(u.getIdUsuario());
 				return ResponseEntity.ok().body(u);
 			}
 		}
