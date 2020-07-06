@@ -56,17 +56,17 @@ public class UsuarioResource {
 	}
 	
 	@RequestMapping(value = "/{autentica}", method=RequestMethod.POST)
-	public boolean autenticaUsuario(@RequestBody Usuario obj){
+	public Usuario autenticaUsuario(@RequestBody Usuario obj){
 		
 		for(Usuario u : usuarioService.findAll()) {
 			
 			if (obj.getLogin().equalsIgnoreCase(u.getLogin()) &&
 					obj.getSenha().equalsIgnoreCase(u.getSenha())) {
 				
-				return true;
+				return u;
 			}
 		}
-		return false;
+		return null;
 	}
 
 }
